@@ -19,7 +19,7 @@ These rules allow for ssh and icmp traffic from any source
 ### **Task 1: Explore the network instances**
 
 - list and note the internal and external ip addresses for server-1 and server-2
-  >gcloud compute instances list
+  >gcloud compute instances list --zone us-central1-a
 
 - ssh into server-1
   >ssh [ip-address]

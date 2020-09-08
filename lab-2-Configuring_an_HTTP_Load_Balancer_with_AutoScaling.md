@@ -24,14 +24,15 @@ We will setup the Cloud NAT service to allow future VM instances to receive inco
     > gcloud beta compute --project=qwiklabs-gcp-eaa885e7e4519903 instances create webserver --zone=us-central1-a --machine-type=f1-micro --subnet=default --no-address --maintenance-policy=MIGRATE --service-account=123442011870-compute@developer.gserviceaccount.com --scopes=https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/trace.append --tags=allow-health-checks --image=debian-9-stretch-v20200902 --image-project=debian-cloud --boot-disk-size=10GB --no-boot-disk-auto-delete --boot-disk-type=pd-standard --boot-disk-device-name=webserver --reservation-affinity=any
 
 - Second, we customize the VM.
-  -  ssh into the VM
+  
+  - ssh into the VM
     > gcloud compute ssh --project qwiklabs-gcp-eaa885e7e4519903 --zone us-central1-a webserver
   - install Apache 2
     > sudo apt-get update \
     > sudo apt-gget install -y apache2
   - start the Apache server
     > sudo service apache2 start
-  - test the default page to ensure the server started
+  - test the default page to ensure the server started. The expected result is the HTML from the apache server.
     > curl localhost
 
 - We'll need to restart the vm, so we set the Apache service to start at boot
@@ -58,7 +59,6 @@ We will setup the Cloud NAT service to allow future VM instances to receive inco
 - First we configure an instance template, which is an API resource for creating VM instances and managed instance groups.
     > gcloud beta compute --project=qwiklabs-gcp-eaa885e7e4519903 instance-templates create mywebserver-template --machine-type=f1-micro --network=projects/qwiklabs-gcp-eaa885e7e4519903/global/networks/default --no-address --maintenance-policy=MIGRATE --service-account=123442011870-compute@developer.gserviceaccount.com --scopes=https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/trace.append --tags=allow-health-checks --image=mywebserver --image-project=qwiklabs-gcp-eaa885e7e4519903 --boot-disk-size=10GB --boot-disk-type=pd-standard --boot-disk-device-name=mywebserver-template --reservation-affinity=any
 
-
 - Next we create the managed instance groups
   - Create health check (name: http-health-check)
     > gcloud compute --project "qwiklabs-gcp-eaa885e7e4519903" health-checks create tcp "http-health-check" --timeout "5" --check-interval "10" --unhealthy-threshold "3" --healthy-threshold "2" --port "80"
@@ -75,14 +75,12 @@ We will setup the Cloud NAT service to allow future VM instances to receive inco
 
     > gcloud beta compute --project "qwiklabs-gcp-eaa885e7e4519903" instance-groups managed set-autoscaling "europe-west1-mig" --region "europe-west1" --cool-down-period "60" --max-num-replicas "2" --min-num-replicas "1" --target-load-balancing-utilization "0.8" --mode "on"
 
-
 ### **Task 5: Configure the HTTP load balancer**
 
 - Configure the backend
   > gcloud compute backend-services create http-backend
 
-- Configure the frontend    
-
+- Configure the frontend
 
 ### **Task 6: Stress test the HTTP load balancer**
 
