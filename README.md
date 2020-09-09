@@ -12,4 +12,7 @@ Andela Project Phase Labs
 
 ### [Lab 3 : Getting Started with Kuberenetes in the Cloud](lab-3-Getting_Started_With_Kubernetes_In_The_Cloud.md)
 
+![](screenshots/Google_Cloud_Fundamentals-Getting_Started_with_GKE.png)
+
 ### [Lab 4 : GCP Fundamentals: Getting Started with App Engine](lab-4-Getting_Started_with_App_Engine.md)
+![](screenshots/Google_Cloud_Fundamentals-Getting_Started_with_App.png)

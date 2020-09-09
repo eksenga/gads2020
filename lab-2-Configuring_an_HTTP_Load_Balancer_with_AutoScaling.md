@@ -88,6 +88,7 @@ Because us-west1 is closer to us-central1 than to europe-west1, traffic should b
 
 - Create stress testing instance
     > gcloud beta compute --project=qwiklabs-gcp-eaa885e7e4519903 instances create stress-test --zone=us-west1-c --machine-type=f1-micro --subnet=default --network-tier=PREMIUM --maintenance-policy=MIGRATE --service-account=123442011870-compute@developer.gserviceaccount.com --scopes=https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/trace.append --image=mywebserver --image-project=qwiklabs-gcp-eaa885e7e4519903 --boot-disk-size=10GB --boot-disk-type=pd-standard --boot-disk-device-name=stress-test --reservation-affinity=any
+    
 - ssh into the box
     > gcloud compute ssh --project qwiklabs-gcp-eaa885e7e4519903 --zone us-central1-a stress-test
 
